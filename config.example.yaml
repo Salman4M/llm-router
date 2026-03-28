@@ -1,0 +1,65 @@
+providers:
+  ollama_local:
+    type: "ollama"
+    base_ur: "http://localhost:11434"
+    models:
+      small:  "qwen2.5:3b"
+      medium: "qwen2.5:7b"
+      large:  "qwen2.5:14b"
+
+  groq_cloud:
+    type: "groq"
+    base_url: "https://api.groq.com/openai/v1"
+    api_key_env: ""
+    models:
+      small: "llama-3.1-8b-instant"
+      medium: "llama-3.3-70b-versatile"
+      large: "llama-3.3-70b-versatile"
+
+  openai_cloud:
+    type: "openai"
+    base_url: "https://api.openai.com/v1"
+    api_key_env: ""
+    models:
+      small:  "claude-haiku-4-5-20251001"
+      medium: "claude-sonnet-4-6"
+      large:  "claude-opus-4-6"
+
+
+routing:
+  default_provider: "groq_cloud"
+  fallback_provider: "ollama_local"
+  fallback_model: "medium"
+
+thresholds:
+  low_confidence: 0.5
+  misclassification_ratio: 2.0
+  overprovisioned_ratio: 0.3
+
+#base_cap values are p90 placeholders - will be replaced with Phase 0 analysis output
+task_caps:
+  factual:
+    base_cap: 80
+    floor: 30
+  list:
+    base_cap: 250
+    floor: 80
+  code_small:
+    base_cap: 350
+    floor: 100
+  code_large:
+    base_cap: 800
+    floor: 200
+  explanation:
+    base_cap: 500
+    floor: 120
+  reasoning:
+    base_cap: 900
+    floor: 200
+  unknown_short:
+    base_cap: 300
+    floor: 80  
+  unknown_long:
+    base_cap: 900
+    floor: 200
+
