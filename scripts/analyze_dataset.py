@@ -117,7 +117,7 @@ def analyze_dataset(
     total = 0
     skipped = 0
 
-    for prompt,response in _iter_conversations(dataset_name,iter(raw)):
+    for prompt,response in conversation_iter:
         if max_conversations is not None and total >= max_conversations:
             break
         try:
@@ -183,7 +183,7 @@ def print_yaml_snippet(stats:dict[str,dict[str,int]]) -> None:
 def save_json(stats:dict[str,dict[str,int]],path:str) -> None:
     out = Path(path)
     out.parent.mkdir(parents=True,exist_ok=True)
-    out.write_tex(json.dumps(stats,indent=2))
+    out.write_text(json.dumps(stats,indent=2))
     print(f"\nResults saved to: {out}")
 
 

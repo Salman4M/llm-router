@@ -43,7 +43,7 @@ _EXPLANATION_PATTERNS = re.compile(
 )
 
 _CODE_REQUEST_PATTERNS = re.compile(
-    r"\b(write||implement|create|build|generate|make|code|program|script|develop)\b",
+    r"\b(write|implement|create|build|generate|make|code|program|script|develop)\b",
     re.IGNORECASE
 )
 
@@ -107,7 +107,7 @@ def analyze(prompt:str) -> Signals:
 
     is_binary_question = bool(_BINARY_PATTERNS.search(tail))
     has_deflator = bool(_DEFLATION_PATTERNS.search(tail))
-    is_confirmation = bool(_CODE_REQUEST_PATTERNS.search(tail))
+    is_confirmation = bool(_CONFIRMATION_PATTERNS.search(tail))
     has_inflator = bool(_INFLATION_PATTERNS.search(tail))
 
     last_sentence = sentences[-1] if sentences else ""

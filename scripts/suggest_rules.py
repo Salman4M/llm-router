@@ -6,7 +6,7 @@ from pathlib import Path
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-sys.path.insert(0,str(Path(__name__).resolve().parent.parent))
+sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
 
 from models.request import RequestRecord
 
@@ -119,7 +119,7 @@ def _write_rule(config_path:Path, new_type: dict)-> Path:
     with config_path.open() as f:
         config = yaml.safe_load(f)
 
-    task_caps:dict = config.setdefault("task_caps","")
+    task_caps:dict = config.setdefault("task_caps",{})
     task_caps[new_type["name"]] = {
         "base_cap": new_type["base_cap"],
         "floor":new_type["floor"]

@@ -11,7 +11,7 @@ class Base(DeclarativeBase):
 class RequestRecord(Base):
     __tablename__ = "requests"
 
-    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda:str(uuid.uuid4))
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda:str(uuid.uuid4()))
     prompt_hash: Mapped[str] = mapped_column(String(64),nullable=False,index=True)
     keywords: Mapped[str] = mapped_column(Text, nullable=False, default="[]") #json list
 

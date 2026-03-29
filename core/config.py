@@ -9,7 +9,7 @@ class ModelMap:
     medium: str
     large: str
 
-    def ge(self,tier:str) ->str:
+    def get(self,tier:str) ->str:
         return getattr(self, tier)
 
 
@@ -32,7 +32,7 @@ class RoutingConfig:
 @dataclass
 class Thresholds:
     low_confidence: float
-    misclassification: float
+    misclassification_ratio: float
     overprovisioned_ratio: float
 
 @dataclass
@@ -54,7 +54,7 @@ class AppConfig:
         return self.providers[name]
     
     def default_provider(self) -> ProviderConfig:
-        return self.provider(self.routing.default_provider)
+        return self.provider(self.routing.fallback_provider)
     
     def fallback_provider(self) -> ProviderConfig:
         return self.providers(self.fallback_provider)
@@ -86,7 +86,7 @@ def _parse_provider(name:str, raw:dict) -> ProviderConfig:
     api_key: str | None = None
     api_key_env = raw.get("api_key_env")
     if api_key_env:
-        api_key = os.getenv("api_key_env")
+        api_key = os.getenv(api_key_env)
         if not api_key:
             raise ValueError(
                 f"Provider '{name}': env var '{api_key_env}' is not set"
@@ -171,7 +171,7 @@ def _parse_task_caps(raw: dict) -> dict[str,TaskCapConfig]:
 
 def load_config(path:Path | str = "config.yaml") -> AppConfig:
     config_path = Path(path)
-    if not config_path.exits():
+    if not config_path.exists():
         raise FileNotFoundError(f"Config file not found: {config_path.resolve()}")
 
     with config_path.open() as f:

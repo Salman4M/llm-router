@@ -9,7 +9,7 @@ _TIMEOUT = httpx.Timeout(connect=5.0, read=120.0, write=10.0, pool=5.0)
 
 class OllamaProvider(BaseProvider):
     def __init__(self,base_url: str)->None:
-        self.base_url = base_url.rstrip("/")
+        self._base_url = base_url.rstrip("/")
 
     async def complete(
         self,

@@ -15,7 +15,7 @@ def _db_url()->str:
     import os
     url = os.getenv("DATABASE_URL")
     if not url:
-        raise RuntimeError("DTABASE_URLA environment variable is not set")
+        raise RuntimeError("DATABASE_URL environment variable is not set")
     
     if url.startswith("postgresql://"):
         url = url.replace("postgresql://","postgresql+asyncpg://",1)
@@ -45,4 +45,4 @@ async def lifespan(app:FastAPI):
 
 
 app = FastAPI(title="llm-router",lifespan=lifespan)
-app.include_router
+app.include_router(router)

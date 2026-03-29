@@ -1,7 +1,7 @@
 providers:
   ollama_local:
     type: "ollama"
-    base_ur: "http://localhost:11434"
+    base_url: "http://localhost:11434"
     models:
       small:  "qwen2.5:3b"
       medium: "qwen2.5:7b"
@@ -21,10 +21,17 @@ providers:
     base_url: "https://api.openai.com/v1"
     api_key_env: "OPENAI_API_KEY"
     models:
+      small:  "gpt-4o-mini"
+      medium: "gpt-4o-mini"
+      large:  "gpt-4o"
+
+  openai_cloud:
+    type: "openai"
+    api_key_env: "ANTHROPIC_API_KEY"
+    models:
       small:  "claude-haiku-4-5-20251001"
       medium: "claude-sonnet-4-6"
       large:  "claude-opus-4-6"
-
 
 routing:
   default_provider: "groq_cloud"

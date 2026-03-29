@@ -25,7 +25,7 @@ class FallbackDecision:
     log_event: str
 
 
-def needs_preemptive_fallback(classification:Classification)  -> FallbackReason | None:
+def needs_preemptive_fallback(classification:Classification)  -> FallbackDecision | None:
     #failure mode 5 - multilingual
     if classification.task_type == TaskType.UNKNOWN_SHORT and classification.max_tokens == 400:
         return FallbackDecision(
@@ -43,7 +43,7 @@ def needs_preemptive_fallback(classification:Classification)  -> FallbackReason 
                 upgraded_max_tokens=None,
                 upgraded_tier=False,
                 reason=FallbackReason.LOW_CONFIDENCE_SHORT,
-                log_event = "low_confidence_long"
+                log_event = "low_confidence_short"
             )
         return FallbackDecision(
             use_fallback_provider=False,

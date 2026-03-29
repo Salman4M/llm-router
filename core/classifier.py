@@ -21,7 +21,7 @@ class ModelTier(StrEnum):
 
 
 _CODE_LARGE_KEYWORDS = frozenset({
-    "class", "api", "system", " service", "server", "client", "framework",
+    "class", "api", "system", "service", "server", "client", "framework",
     "architecture", "pipeline", "module", "library", "package", "database",
     "schema", "endpoint", "microservices", "cli", "daemon", "worker"
 })
@@ -104,7 +104,7 @@ def _has_code_large_scope(signals:Signals)-> bool:
 def _infer_task_type(signals: Signals, raw_prompt:str) ->TaskType:
     if signals.is_code_request or signals.has_code_block:
         prompt_lower = raw_prompt.lower()
-        has_large_scope = any(kw in prompt_lower for kw in _CODE_LARGE_KEYWORDS) or has_large_scope(signals)
+        has_large_scope = any(kw in prompt_lower for kw in _CODE_LARGE_KEYWORDS) or _has_code_large_scope(signals)
         
         return TaskType.CODE_LARGE if has_large_scope else TaskType.CODE_SMALL
     

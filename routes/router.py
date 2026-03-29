@@ -61,7 +61,7 @@ def _get_recorder(request:Request) -> Recorder:
     return request.app.state.recorder
     
 
-
+@router.post("/route",response_model=RouteResponse)
 async def route(
         body:RouteRequest,
         config: AppConfig = Depends(_get_config),
