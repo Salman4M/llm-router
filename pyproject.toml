@@ -17,6 +17,8 @@ dependencies = [
     "tiktoken>=0.7.0",
     "datasets>=3.0.0",
     "alembic>=1.18.4",
+    "pytest>=9.0.2",
+    "ruff>=0.15.8",
 ]
 
 [project.optional-dependencies]
