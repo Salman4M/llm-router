@@ -23,7 +23,7 @@ class ProxyResult:
     response:ProviderResponse
     provider_name: str
     was_fallback:bool
-    fallback_reason: FallbackDecision | None
+    fallback_reason: FallbackReason | None
     was_upgraded: bool
     response_time_ms: float
 

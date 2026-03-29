@@ -54,10 +54,10 @@ class AppConfig:
         return self.providers[name]
     
     def default_provider(self) -> ProviderConfig:
-        return self.provider(self.routing.fallback_provider)
+        return self.provider(self.routing.default_provider)
     
     def fallback_provider(self) -> ProviderConfig:
-        return self.providers(self.fallback_provider)
+        return self.provider(self.routing.fallback_provider)
     
     def task_cap(self,task_type: str) -> TaskCapConfig:
         if task_type not in self.task_caps:

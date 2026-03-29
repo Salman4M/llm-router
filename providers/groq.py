@@ -57,7 +57,7 @@ class GroqProvider(BaseProvider):
         #groq doesn't have dedicated health endpoint - so we attempt a minimal completion
         #with max_tokens=1 to verify API key and connectivity
         try:
-            await self.complete(prompt="hi",model="llama-3.1.8b-instant",max_tokens=1)
+            await self.complete(prompt="hi",model="llama-3.1-8b-instant",max_tokens=1)
             return True
         except httpx.HTTPStatusError as e:
             #429 means rate-limited but provider is up
